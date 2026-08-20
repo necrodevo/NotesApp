@@ -17,7 +17,7 @@ A simple, lightweight notes API built with modern Python tools.
 
 ## How It Works
 
-There is currently no database — an in-memory Python list acts as storage for the lifetime of the server process. Notes are lost on restart.
+It has a Sqlite Database - local database provided by python sqlite which is orchestrated through SQLAlchemy to form a data store pipeline. Using DBAPI basic methods like create_engine, exectute, connect orchestration of sqlite is made possible.
 
 **Available endpoints:**
 
