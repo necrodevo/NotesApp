@@ -6,7 +6,7 @@ def inputHandler():
         num = int(input("Enter any number"))
     except ValueError:
         print("Please enter an integer")
-        num = inputHandler()
+        num = inputHandler() # recursively calls same function until we have the correct input
     return num
     
 def get_note():

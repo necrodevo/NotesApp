@@ -1,8 +1,10 @@
 from fastapi import FastAPI
 from fastapi import HTTPException
+import database as db # importing database
+
+db.create_table() # creating the table in the database
 
 app = FastAPI()
-notes = []
 
 @app.get("/")
 def get_main(name:str)->dict:
@@ -10,14 +12,15 @@ def get_main(name:str)->dict:
 
 @app.get("/note/{item_id}")
 def get_notes(item_id:int)->dict:
-    for dicts in notes:
-        if dicts.get("id") == item_id:
-            return {"id":item_id,"author":dicts.get("author"),"note":dicts.get("note")}
-    raise HTTPException(status_code=404,detail=f"Notes with id {item_id} not found!")
+    result = db.get_note(item_id)
+    if result is not None: # none means no data was found
+        return {"note":result[1],"author":result[0]} # returns the author and notes data from the returned result
+    raise HTTPException(status_code=404,detail=f"Notes with {item_id} not found!")
 
 @app.post("/note")
 def create_product(author:str,note:str)->dict:
-    notes.append({"id":len(notes),"author":author,"note":note})
-    return {"id":len(notes) -1 ,"author":author,"note":note}
-# using len -1 as index adjustment because when a new post is made the length is incremented by one 
-# to resolve that we use -1 
+    result = db.post_note(author,note)
+    if result is not None:
+        print("check log!")
+        return {"status":"Success"}
+    raise HTTPException(status_code=405,detail=f"Issue With Internal Services!")

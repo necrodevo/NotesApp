@@ -11,7 +11,6 @@ A simple, lightweight notes API built with modern Python tools.
 ## Tech Stack
 
 * **[FastAPI](https://fastapi.tiangolo.com/)** — high-performance, easy-to-use web framework for building APIs
-* **[Pydantic](https://docs.pydantic.dev/)** — data validation and settings management using Python type annotations
 * **Python type hinting** — clean, maintainable code with full type clarity
 
 ---
@@ -34,7 +33,7 @@ Note IDs are generated automatically based on the current list length at creatio
 ## Known Limitations
 
 - `POST /notes` currently accepts `author` and `note` as **query parameters** rather than a JSON request body. This means note content appears directly in the URL and server logs, and is not suitable for long or sensitive text. This was a deliberate choice while learning how query parameters work in FastAPI — a production version would use a Pydantic request body instead.
-- Data does not persist between server restarts (no database yet).
+- Data persists between server restarts - used sqlite through sqlalchemy thought using simple syntax and practice involving ORM is avoided beacause of learning purpose for now.
 
 ---
 
@@ -56,7 +55,7 @@ python sender.py
 
 ## Roadmap
 
-- [ ] Move note creation to a JSON request body via a Pydantic model
-- [ ] Add persistent storage (SQLite via SQLAlchemy)
-- [ ] Add update (`PATCH`) and delete (`DELETE`) endpoints
-- [ ] Add input validation and error responses for missing/invalid notes
+- [To-Do] Move note creation to a JSON request body via a Pydantic model
+- [Done] Add persistent storage (SQLite via SQLAlchemy)
+- [To-Do] Add update (`PATCH`) and delete (`DELETE`) endpoints
+- [To-Do] Add input validation and error responses for missing/invalid notes
